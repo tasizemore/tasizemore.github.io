@@ -99,7 +99,7 @@ nav {
     height: 85vh;
     /* Darker overlay to make white text pop like a movie title */
     background: linear-gradient(rgba(20, 30, 20, 0.5), rgba(20, 30, 20, 0.5)), 
-                url('https://placehold.co/1920x1080/2E4A3D/ffffff?text=Middle+Earth+Landscape'); 
+                url('images/background.jpg'); 
     background-size: cover;
     background-position: center;
     display: flex;
