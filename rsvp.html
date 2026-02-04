@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RSVP - Jane & John</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">J & J</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="rsvp.html" class="active">RSVP</a></li>
+                <li><a href="#" target="_blank" class="registry-btn">Registry</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="rsvp-section">
+        <div class="container">
+            <h2>RSVP</h2>
+            <p>Please respond by September 1st, 2026</p>
+
+            <form action="https://formspree.io/f/YOUR_FORM_ID_HERE" method="POST" class="rsvp-form">
+                
+                <div class="form-group">
+                    <label for="name">Full Name(s)</label>
+                    <input type="text" id="name" name="name" placeholder="Jane Doe & John Smith" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Will you be attending?</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="attendance" value="Joyfully Accept" required> Joyfully Accept</label>
+                        <label><input type="radio" name="attendance" value="Regretfully Decline"> Regretfully Decline</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="guests">Number of Guests</label>
+                    <select id="guests" name="guests">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="dietary">Dietary Restrictions</label>
+                    <textarea id="dietary" name="message" placeholder="Gluten-free, Vegan, etc."></textarea>
+                </div>
+
+                <button type="submit">Send RSVP</button>
+            </form>
+        </div>
+    </section>
+
+</body>
+</html>
