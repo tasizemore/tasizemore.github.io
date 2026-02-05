@@ -40,8 +40,8 @@
                 <div class="form-group">
                     <label>Will you be attending?</label>
                     <div class="radio-group">
-                        <label><input type="radio" name="attendance" value="I'm ready for an adventure!" required> Attending</label>
-                        <label><input type="radio" name="attendance" value="Alas, I cannot leave the Shire."> Not attending</label>
+                        <label><input type="radio" name="attendance" value="I'm ready for an adventure!" required> I'm ready for an adventure!</label>
+                        <label><input type="radio" name="attendance" value="Alas, I cannot venture forth."> Alas, I cannot venture forth.</label>
                     </div>
                 </div>
 
@@ -57,7 +57,7 @@
 
                 <div class="form-group">
                     <label for="dietary">Dietary Restrictions</label>
-                    <textarea id="dietary" name="message" placeholder="No lembas bread, please..."></textarea>
+                    <textarea id="dietary" name="message" placeholder="Boil 'em, mash 'em, stick 'em in a stew..."></textarea>
                 </div>
 
                 <button type="submit" id="submit-btn">Send RSVP</button>
@@ -73,7 +73,6 @@
       form.addEventListener('submit', e => {
         e.preventDefault();
         
-        // Disable button to prevent double-clicks
         btn.disabled = true;
         btn.innerHTML = "Sending to the Shire...";
 

@@ -1,19 +1,15 @@
-/* --- Variables & Reset --- */
 :root {
-    /* Fonts: Cinzel for that "engraved in stone" look, Cormorant for book text */
     --primary-font: 'Cinzel', serif; 
     --secondary-font: 'Cormorant Garamond', serif;
     
-    /* Palette: Middle-earth Map */
-    --bg-color: #F3E9D2;      /* Aged Parchment */
-    --card-bg: #FDFBF7;       /* Lighter paper for cards */
-    --text-color: #2b2b2b;    /* Ink Black */
+    --bg-color: #F3E9D2;
+    --card-bg: #FDFBF7;
+    --text-color: #2b2b2b;
     
-    /* Accents: Lothlorien & Mordor */
-    --accent-color: #2E4A3D;  /* Deep Elven Green */
-    --gold-color: #C5A059;    /* Metallic Gold */
-    --gold-hover: #b08d48;    /* Darker Gold */
-    --border-color: #d1c7b0;  /* Subtle map lines */
+    --accent-color: #2E4A3D;
+    --gold-color: #C5A059;
+    --gold-hover: #b08d48;
+    --border-color: #d1c7b0;
 }
 
 * {
@@ -35,7 +31,7 @@ h1, h2, h3 {
     font-family: var(--primary-font);
     font-weight: 700;
     color: #1a1a1a;
-    letter-spacing: 2px; /* Cinematic spacing */
+    letter-spacing: 2px;
     text-transform: uppercase;
 }
 
@@ -45,13 +41,12 @@ a {
     transition: color 0.3s ease;
 }
 
-/* --- Navigation --- */
 nav {
     padding: 1.5rem 2rem;
     display: flex;
     justify-content: center;
     background: var(--bg-color);
-    border-bottom: 2px solid var(--gold-color); /* The gold line */
+    border-bottom: 2px solid var(--gold-color);
 }
 
 .nav-container {
@@ -67,7 +62,7 @@ nav {
     font-size: 2rem;
     font-weight: 700;
     color: var(--accent-color);
-    text-shadow: 1px 1px 0px rgba(197, 160, 89, 0.3); /* Subtle gold shadow */
+    text-shadow: 1px 1px 0px rgba(197, 160, 89, 0.3);
 }
 
 .nav-links {
@@ -87,17 +82,15 @@ nav {
 
 .nav-links a:hover, .nav-links a.active {
     color: var(--accent-color);
-    text-shadow: 0 0 10px rgba(138, 154, 91, 0.4); /* Elven glow */
+    text-shadow: 0 0 10px rgba(138, 154, 91, 0.4);
 }
 
 .registry-btn {
     border-bottom: 2px solid var(--gold-color);
 }
 
-/* --- Hero Section --- */
 .hero {
     height: 85vh;
-    /* Darker overlay to make white text pop like a movie title */
     background: linear-gradient(rgba(20, 30, 20, 0.5), rgba(20, 30, 20, 0.5)), 
                 url('images/background.jpg'); 
     background-size: cover;
@@ -110,14 +103,13 @@ nav {
     border-bottom: 4px double var(--gold-color);
 }
 
-/* --- Hobbit Joke Styling --- */
 .hero-prefix {
-    font-family: var(--primary-font); /* Uses Cinzel */
+    font-family: var(--primary-font);
     font-size: 1.2rem;
     letter-spacing: 4px;
     text-transform: uppercase;
     color: var(--gold-color);
-    margin-bottom: -10px; /* Pulls it closer to the main heading */
+    margin-bottom: -10px;
     font-weight: 400;
     text-shadow: 0 2px 4px rgba(0,0,0,0.5);
     opacity: 0.9;
@@ -149,7 +141,7 @@ nav {
     color: #fff;
     padding: 15px 40px;
     border: 2px solid var(--gold-color);
-    border-radius: 2px; /* Sharper corners feel more ancient */
+    border-radius: 2px;
     font-family: var(--primary-font);
     text-transform: uppercase;
     letter-spacing: 2px;
@@ -161,12 +153,11 @@ nav {
 .cta-button:hover {
     background-color: transparent;
     color: var(--gold-color);
-    border-color: #ff4500; /* A fiery orange-red */
+    border-color: #ff4500;
     box-shadow: 0 0 20px #ff4500, inset 0 0 10px #ff4500;
     text-shadow: 0 0 5px #ff4500;
 }
 
-/* --- Details Section --- */
 .container {
     max-width: 1100px;
     margin: 0 auto;
@@ -181,9 +172,8 @@ nav {
     position: relative;
 }
 
-/* Decorative flourishes under headings */
 .details h2::after, .gallery h2::after, .rsvp-section h2::after {
-    content: "❖"; /* A rune-like diamond symbol */
+    content: "❖";
     display: block;
     font-size: 1.5rem;
     color: var(--gold-color);
@@ -203,7 +193,6 @@ nav {
     padding: 3rem 2rem;
     background: var(--card-bg);
     border: 1px solid var(--border-color);
-    /* Double border for a "framed map" look */
     outline: 4px double var(--border-color); 
     outline-offset: -10px;
     box-shadow: 5px 5px 15px rgba(0,0,0,0.05);
@@ -218,7 +207,6 @@ nav {
     display: inline-block;
 }
 
-/* --- Photo Grid --- */
 .photo-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -233,7 +221,7 @@ nav {
     height: 100%;
     object-fit: cover;
     border-radius: 2px;
-    filter: sepia(20%); /* Slight vintage tone */
+    filter: sepia(20%);
     transition: filter 0.3s;
 }
 
@@ -241,9 +229,8 @@ nav {
     filter: sepia(0%);
 }
 
-/* --- RSVP Form --- */
 .rsvp-section {
-    background-color: #EDE4D1; /* Slightly darker parchment for contrast */
+    background-color: #EDE4D1;
 }
 
 .rsvp-form {
@@ -253,7 +240,7 @@ nav {
     background: var(--card-bg);
     padding: 3rem;
     border: 2px solid var(--gold-color);
-    box-shadow: 10px 10px 0px rgba(46, 74, 61, 0.1); /* Offset shadow */
+    box-shadow: 10px 10px 0px rgba(46, 74, 61, 0.1);
 }
 
 .form-group {
@@ -274,7 +261,7 @@ input[type="text"], input[type="email"], select, textarea {
     padding: 12px;
     background: transparent;
     border: none;
-    border-bottom: 2px solid #ccc; /* Underline only style */
+    border-bottom: 2px solid #ccc;
     font-family: var(--secondary-font);
     font-size: 1.1rem;
     transition: border-color 0.3s;
@@ -318,7 +305,6 @@ button[type="submit"]:hover {
     color: var(--accent-color);
 }
 
-/* --- Footer --- */
 footer {
     text-align: center;
     padding: 3rem;
@@ -330,7 +316,6 @@ footer {
     border-top: 4px double var(--gold-color);
 }
 
-/* --- Mobile Responsiveness --- */
 @media (max-width: 768px) {
     .hero h1 { font-size: 3.5rem; }
     .nav-container { flex-direction: column; gap: 1.5rem; }
@@ -339,14 +324,13 @@ footer {
     .rsvp-form { padding: 1.5rem; }
 }
 
-/* --- Thank You Page Specifics --- */
 .thank-you-section {
     height: 70vh;
     display: flex;
     align-items: center;
     justify-content: center;
     background-color: var(--bg-color);
-    background-image: url("data:image/svg+xml,..."); /* Same grain texture */
+    background-image: url("data:image/svg+xml,...");
 }
 
 .thank-you-section h1 {
