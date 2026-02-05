@@ -17,7 +17,7 @@
             <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="rsvp.html" class="active">RSVP</a></li>
-                <li><a href="https://www.amazon.com/wedding/share/carly-and-tim" target="_blank" rel="noopener noreferrer" class="registry-btn">Registry</a></li>
+                <li><a href="https://www.amazon.com/wedding/share/carly-and-tim" target="_blank" rel="noopener noreferrer">Registry</a></li>
             </ul>
         </div>
     </nav>
@@ -42,8 +42,8 @@
                 <div class="form-group">
                     <label>Will you be attending?</label>
                     <div class="radio-group">
-                        <label><input type="radio" name="attendance" value="I'm ready for an adventure!" required> I'm ready for an adventure!</label>
-                        <label><input type="radio" name="attendance" value="Alas, I cannot venture forth."> Alas, I cannot venture forth.</label>
+                        <label><input type="radio" name="attendance" value="Yes" required> Yes, I'm ready for an adventure!</label>
+                        <label><input type="radio" name="attendance" value="No"> Alas, I cannot venture forth.</label>
                     </div>
                 </div>
 
@@ -68,29 +68,40 @@
     </section>
 
     <script>
-      const scriptURL = 'https://script.google.com/macros/s/AKfycbzzgFnxj9566GoI-kkNamoZTDo5CU3vkkrjF4_fWMEJ4eL0sK1W1aBDPQtS4G97Jek/exec';
-      const form = document.getElementById('rsvp-form');
-      const btn = document.getElementById('submit-btn');
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbzzgFnxj9566GoI-kkNamoZTDo5CU3vkkrjF4_fWMEJ4eL0sK1W1aBDPQtS4G97Jek/exec';
+        const form = document.getElementById('rsvp-form');
+        const btn = document.getElementById('submit-btn');
 
-      form.addEventListener('submit', e => {
-        e.preventDefault();
-        
-        btn.disabled = true;
-        btn.innerHTML = "Sending to the Shire...";
+        form.addEventListener('submit', e => {
+            e.preventDefault();
 
-        fetch(scriptURL, { method: 'POST', body: new FormData(form)})
-          .then(response => {
-              console.log('Success!', response);
-              window.location.href = "thank-you.html";
-          })
-          .catch(error => {
-              console.error('Error!', error.message);
-              alert('Something went wrong. Please try again!');
-              btn.disabled = false;
-              btn.innerHTML = "Send RSVP";
-          });
-      });
+            const attendanceValue = document.querySelector('input[name="attendance"]:checked').value;
+
+            btn.disabled = true;
+            btn.innerHTML = "Consulting the Council...";
+
+            fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+                .then(response => {
+                    // Conditional Logic
+                    // Check if the value contains "adventure" (for Yes) or "Alas" (for No)
+                    if (attendanceValue.includes("Yes")) {
+                        window.location.href = "thank-you.html";
+                    } else {
+                        window.location.href = "regrets.html";
+                    }
+                })
+                .catch(error => {
+                    console.error('Error!', error.message);
+                    alert('A shadow has fallen on the form. Please try again!');
+                    btn.disabled = false;
+                    btn.innerHTML = "Send RSVP";
+                });
+        });
     </script>
+
+    <footer>
+        <p>We can't wait to celebrate with you!</p>
+    </footer>
 
 </body>
 </html>

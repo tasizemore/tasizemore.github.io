@@ -85,10 +85,6 @@ nav {
     text-shadow: 0 0 10px rgba(138, 154, 91, 0.4);
 }
 
-.registry-btn {
-    border-bottom: 2px solid var(--gold-color);
-}
-
 .hero {
     height: 85vh;
     background: linear-gradient(rgba(20, 30, 20, 0.5), rgba(20, 30, 20, 0.5)), 
