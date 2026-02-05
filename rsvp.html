@@ -77,11 +77,10 @@
         btn.disabled = true;
         btn.innerHTML = "Sending to the Shire...";
 
-        // Send data to Google Sheets
         fetch(scriptURL, { method: 'POST', body: new FormData(form)})
           .then(response => {
               console.log('Success!', response);
-              window.location.href = "thank-you.html"; // Redirect to thank you page
+              window.location.href = "thank-you.html";
           })
           .catch(error => {
               console.error('Error!', error.message);
