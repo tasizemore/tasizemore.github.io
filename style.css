@@ -159,9 +159,11 @@ nav {
 }
 
 .cta-button:hover {
-    background-color: var(--gold-color);
-    color: #1a1a1a;
-    box-shadow: 0 0 15px var(--gold-color);
+    background-color: transparent;
+    color: var(--gold-color);
+    border-color: #ff4500; /* A fiery orange-red */
+    box-shadow: 0 0 20px #ff4500, inset 0 0 10px #ff4500;
+    text-shadow: 0 0 5px #ff4500;
 }
 
 /* --- Details Section --- */
