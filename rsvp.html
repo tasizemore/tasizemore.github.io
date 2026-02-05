@@ -25,46 +25,32 @@
             <h2>RSVP</h2>
             <p>Please respond by September 1st, 2026</p>
 
-            <form action="https://formspree.io/f/YOUR_FORM_ID_HERE" method="POST" class="rsvp-form">
-                
-                <input type="hidden" name="_next" value="https://tasizemore.github.io/thank-you.html">
-                <div class="form-group">
-                    <label for="name">Full Name(s)</label>
-                    <input type="text" id="name" name="name" placeholder="Jane Doe & John Smith" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="email">Email Address</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-
-                <div class="form-group">
-                    <label>Will you be attending?</label>
-                    <div class="radio-group">
-                        <label><input type="radio" name="attendance" value="Joyfully Accept" required> Joyfully Accept</label>
-                        <label><input type="radio" name="attendance" value="Regretfully Decline"> Regretfully Decline</label>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="guests">Number of Guests</label>
-                    <select id="guests" name="guests">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="dietary">Dietary Restrictions</label>
-                    <textarea id="dietary" name="message" placeholder="Gluten-free, Vegan, etc."></textarea>
-                </div>
-
-                <button type="submit">Send RSVP</button>
+            <form id="rsvp-form" class="rsvp-form">
+                <button type="submit" id="submit-btn">Send RSVP</button>
             </form>
+
+            <script>
+                const scriptURL = 'https://script.google.com/macros/s/AKfycbzzgFnxj9566GoI-kkNamoZTDo5CU3vkkrjF4_fWMEJ4eL0sK1W1aBDPQtS4G97Jek/exec';
+                const form = document.getElementById('rsvp-form');
+                const btn = document.getElementById('submit-btn');
+
+                form.addEventListener('submit', e => {
+                    e.preventDefault();
+                    btn.disabled = true;
+                    btn.innerHTML = "Sending...";
+
+                fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+                    .then(response => {
+                        window.location.href = "thank-you.html"; // Redirect on success
+                    })
+                    .catch(error => {
+                        alert('Error! Please try again.');
+                        btn.disabled = false;
+                        btn.innerHTML = "Send RSVP";
+                    });
+                });
+            </script>
         </div>
     </section>
-
 </body>
 </html>
