@@ -70,16 +70,6 @@
                     </div>
                 </div>
 
-                <!-- <div class="form-group">
-                    <label for="meal">Meal Choice</label>
-                    <p><em>Dinner will be served with fresh bread, a mixed green salad with a choice of Italian or ranch dressing, and accompanied by coffee, tea, and an open bar.</em></p>
-                    <div class="radio-group">
-                        <label><input type="radio" name="meal" value="chicken" required> Chicken Alfredo Penne</label>
-                        <label><input type="radio" name="meal" value="meatball"> Meatball Marinara Penne</label>
-                        <label><input type="radio" name="meal" value="special"> Neither, I have a special dietary restriction.</label>
-                    </div>
-                </div> -->
-
                 <div class="form-group">
                     <label for="dietary">Dietary Restrictions</label>
                     <textarea id="dietary" name="message"
@@ -103,8 +93,8 @@ function updateEntreeFields() {
             <div style="margin-top: 20px;">
                 <label style="margin-bottom: 10px; display: block;">Guest ${i} Entree</label>
                 <div class="radio-group">
-                    <label><input type="radio" name="entree_${i}" value="Chicken Alfredo Penne" required> Chicken Alfredo Penne</label>
-                    <label><input type="radio" name="entree_${i}" value="Meatball Marinara Penne"> Meatball Marinara Penne</label>
+                    <label><input type="radio" name="entree_${i}" value="Chicken" required> Chicken Alfredo Penne</label>
+                    <label><input type="radio" name="entree_${i}" value="Meatball"> Meatball Marinara Penne</label>
                     <label><input type="radio" name="entree_${i}" value="Special"> Neither, there's a dietary restriction noted below.</label>
                 </div>
             </div>
