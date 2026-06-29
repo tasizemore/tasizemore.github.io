@@ -64,9 +64,8 @@
                 </div>
 
                 <div class="form-group">
-                    <p><em>Dinner will be served with fresh bread, a mixed green salad with a choice of Italian or ranch
-                            dressing, and accompanied by coffee, tea, and an open bar.</em></p>
-
+                    <label for="dynamic-entrees">Entree Choice</label>
+                    <p><em>Dinner will be served with fresh bread, a mixed green salad with a choice of Italian or ranch dressing, and accompanied by coffee, tea, and an open bar.</em></p>
                     <div id="dynamic-entrees">
                     </div>
                 </div>
@@ -92,42 +91,31 @@
         </div>
     </section>
 
-    <script>
-        function updateEntreeFields() {
-            const guestCount = document.getElementById('guests').value;
-            const container = document.getElementById('dynamic-entrees');
-
-            // Clear existing fields
-            container.innerHTML = '';
-
-            // Generate new fields for each guest
-            for (let i = 1; i <= guestCount; i++) {
-                container.innerHTML += `
-            <div style="margin-bottom: 15px;">
-                <p><strong>Guest ${i} Entree:</strong></p>
-                <div>
-                    <input type="radio" id="chicken_${i}" name="entree_${i}" value="Chicken Alfredo Penne" required>
-                    <label for="chicken_${i}">Chicken Alfredo Penne</label>
-                </div>
-                <div>
-                    <input type="radio" id="meatball_${i}" name="entree_${i}" value="Meatball Marinara Penne">
-                    <label for="meatball_${i}">Meatball Marinara Penne</label>
-                </div>
-                <div>
-                    <input type="radio" id="special_${i}" name="entree_${i}" value="Neither, there is a special dietary restriction noted below.">
-                    <label for="special_${i}">Neither</label>
+<script>
+function updateEntreeFields() {
+    const guestCount = document.getElementById('guests').value;
+    const container = document.getElementById('dynamic-entrees');
+    
+    container.innerHTML = '';
+    
+    for(let i = 1; i <= guestCount; i++) {
+        container.innerHTML += `
+            <div style="margin-top: 20px;">
+                <label style="margin-bottom: 10px; display: block;">Guest ${i} Entree</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="entree_${i}" value="Chicken Alfredo Penne" required> Chicken Alfredo Penne</label>
+                    <label><input type="radio" name="entree_${i}" value="Meatball Marinara Penne"> Meatball Marinara Penne</label>
+                    <label><input type="radio" name="entree_${i}" value="Special"> Neither, there's a dietary restriction noted below.</label>
                 </div>
             </div>
         `;
-            }
-        }
+    }
+}
 
-        // Run once when the page loads to show the field for Guest 1
-        document.addEventListener('DOMContentLoaded', updateEntreeFields);
+document.addEventListener('DOMContentLoaded', updateEntreeFields);
 
-        // Run every time the guest dropdown is changed
-        document.getElementById('guests').addEventListener('change', updateEntreeFields);
-    </script>
+document.getElementById('guests').addEventListener('change', updateEntreeFields);
+</script>
 
     <script>
         const scriptURL = 'https://script.google.com/macros/s/AKfycbzzgFnxj9566GoI-kkNamoZTDo5CU3vkkrjF4_fWMEJ4eL0sK1W1aBDPQtS4G97Jek/exec';
