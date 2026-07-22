@@ -44,14 +44,14 @@
                     <input type="email" id="email" name="email" placeholder="bilbo@shire.com" required>
                 </div>
 
-                <div class="form-group">
-                    <label>Will you be attending?</label>
+                <fieldset class="form-group" style="border: none; padding: 0;">
+                    <legend style="margin-bottom: 0.8rem; font-weight: 600; font-family: var(--primary-font); color: var(--accent-color); letter-spacing: 1px;">Will you be attending?</legend>
                     <div class="radio-group">
                         <label><input type="radio" name="attendance" value="Yes" required> Yes, I'm ready for an
                             adventure!</label>
                         <label><input type="radio" name="attendance" value="No"> Alas, I cannot venture forth.</label>
                     </div>
-                </div>
+                </fieldset>
 
                 <div class="form-group">
                     <label for="guests">Number of Guests (including you!)</label>
@@ -83,22 +83,31 @@
 
 <script>
 function updateEntreeFields() {
-    const guestCount = document.getElementById('guests').value;
+    const guestCount = parseInt(document.getElementById('guests').value, 10);
     const container = document.getElementById('dynamic-entrees');
     
-    container.innerHTML = '';
+    const currentCount = container.children.length;
     
-    for(let i = 1; i <= guestCount; i++) {
-        container.innerHTML += `
-            <div style="margin-top: 20px;">
-                <label style="margin-bottom: 10px; display: block;">Guest ${i} Entree</label>
-                <div class="radio-group">
-                    <label><input type="radio" name="entree_${i}" value="Chicken" required> Chicken Alfredo Penne</label>
-                    <label><input type="radio" name="entree_${i}" value="Meatball"> Meatball Marinara Penne</label>
-                    <label><input type="radio" name="entree_${i}" value="Special"> Neither, there's a dietary restriction noted below.</label>
-                </div>
-            </div>
-        `;
+    if (guestCount > currentCount) {
+        for(let i = currentCount + 1; i <= guestCount; i++) {
+            const div = document.createElement('div');
+            div.style.marginTop = '20px';
+            div.innerHTML = `
+                <fieldset style="border: none; padding: 0;">
+                    <legend style="margin-bottom: 10px; display: block; font-family: var(--primary-font); color: var(--accent-color); font-weight: 600;">Guest ${i} Entree</legend>
+                    <div class="radio-group">
+                        <label><input type="radio" name="entree_${i}" value="Chicken" required> Chicken Alfredo Penne</label>
+                        <label><input type="radio" name="entree_${i}" value="Meatball"> Meatball Marinara Penne</label>
+                        <label><input type="radio" name="entree_${i}" value="Special"> Neither, there's a dietary restriction noted below.</label>
+                    </div>
+                </fieldset>
+            `;
+            container.appendChild(div);
+        }
+    } else if (guestCount < currentCount) {
+        for(let i = currentCount; i > guestCount; i--) {
+            container.removeChild(container.lastElementChild);
+        }
     }
 }
 
@@ -120,7 +129,7 @@ document.getElementById('guests').addEventListener('change', updateEntreeFields)
             btn.disabled = true;
             btn.innerHTML = "Consulting the Council...";
 
-            fetch(scriptURL, { method: 'POST', body: new FormData(form) })
+            fetch(scriptURL, { method: 'POST', body: new FormData(form), mode: 'no-cors' })
                 .then(response => {
                     // Conditional Logic
                     // Check if the value contains "adventure" (for Yes) or "Alas" (for No)
