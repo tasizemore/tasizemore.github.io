@@ -7,6 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RSVP - Carly & Tim</title>
     <link rel="icon" type="image/png" href="images/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="style.css">
     <link
         href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Cormorant+Garamond:wght@400;600;700&display=swap"
@@ -53,20 +55,22 @@
                     </div>
                 </fieldset>
 
-                <div class="form-group">
-                    <label for="guests">Number of Guests (including you!)</label>
-                    <select id="guests" name="guests">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                    </select>
-                </div>
+                <div id="attending-details">
+                    <div class="form-group">
+                        <label for="guests">Number of Guests (including you!)</label>
+                        <select id="guests" name="guests">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
+                    </div>
 
-                <div class="form-group">
-                    <label for="dynamic-entrees">Entree Choice</label>
-                    <p><em>Dinner will be served with fresh bread, a mixed green salad with a choice of Italian or ranch dressing, and accompanied by coffee, tea, and an open bar.</em></p>
-                    <div id="dynamic-entrees">
+                    <div class="form-group">
+                        <p class="form-label">Entree Choice</p>
+                        <p><em>Dinner will be served with fresh bread, a mixed green salad with a choice of Italian or ranch dressing, and accompanied by coffee, tea, and an open bar.</em></p>
+                        <div id="dynamic-entrees">
+                        </div>
                     </div>
                 </div>
 
@@ -76,20 +80,47 @@
                         placeholder="Boil 'em, mash 'em, stick 'em in a stew..."></textarea>
                 </div>
 
+                <div style="position: absolute; left: -9999px;" aria-hidden="true">
+                    <label for="hp_check">Leave this field blank</label>
+                    <input type="text" id="hp_check" name="hp_check" tabindex="-1" autocomplete="off">
+                </div>
+
                 <button type="submit" id="submit-btn">Send RSVP</button>
             </form>
         </div>
     </section>
 
 <script>
+function updateAttendingState() {
+    const selected = document.querySelector('input[name="attendance"]:checked');
+    const isDeclining = selected && selected.value === 'No';
+    const attendingDetails = document.getElementById('attending-details');
+    const guestsSelect = document.getElementById('guests');
+    const entreeInputs = document.querySelectorAll('#dynamic-entrees input[type="radio"]');
+
+    attendingDetails.style.display = isDeclining ? 'none' : 'block';
+    guestsSelect.disabled = isDeclining;
+
+    entreeInputs.forEach(input => {
+        input.disabled = isDeclining;
+    });
+
+    const fieldsets = document.querySelectorAll('#dynamic-entrees fieldset');
+    fieldsets.forEach(fieldset => {
+        const firstRadio = fieldset.querySelector('input[type="radio"]');
+        if (firstRadio) {
+            firstRadio.required = !isDeclining;
+        }
+    });
+}
+
 function updateEntreeFields() {
     const guestCount = parseInt(document.getElementById('guests').value, 10);
     const container = document.getElementById('dynamic-entrees');
-    
     const currentCount = container.children.length;
-    
+
     if (guestCount > currentCount) {
-        for(let i = currentCount + 1; i <= guestCount; i++) {
+        for (let i = currentCount + 1; i <= guestCount; i++) {
             const div = document.createElement('div');
             div.style.marginTop = '20px';
             div.innerHTML = `
@@ -105,13 +136,20 @@ function updateEntreeFields() {
             container.appendChild(div);
         }
     } else if (guestCount < currentCount) {
-        for(let i = currentCount; i > guestCount; i--) {
+        for (let i = currentCount; i > guestCount; i--) {
             container.removeChild(container.lastElementChild);
         }
     }
+
+    updateAttendingState();
 }
 
-document.addEventListener('DOMContentLoaded', updateEntreeFields);
+document.addEventListener('DOMContentLoaded', () => {
+    updateEntreeFields();
+    document.querySelectorAll('input[name="attendance"]').forEach(radio => {
+        radio.addEventListener('change', updateAttendingState);
+    });
+});
 
 document.getElementById('guests').addEventListener('change', updateEntreeFields);
 </script>
@@ -121,19 +159,38 @@ document.getElementById('guests').addEventListener('change', updateEntreeFields)
         const form = document.getElementById('rsvp-form');
         const btn = document.getElementById('submit-btn');
 
+        window.addEventListener('pageshow', () => {
+            btn.disabled = false;
+            btn.textContent = "Send RSVP";
+        });
+
         form.addEventListener('submit', e => {
             e.preventDefault();
 
+            if (document.getElementById('hp_check').value) {
+                return;
+            }
+
             const attendanceValue = document.querySelector('input[name="attendance"]:checked').value;
+            const formData = new FormData(form);
+            formData.delete('hp_check');
+
+            if (attendanceValue === "No") {
+                formData.set('guests', '0');
+            }
 
             btn.disabled = true;
-            btn.innerHTML = "Consulting the Council...";
+            btn.textContent = "Consulting the Council...";
 
-            fetch(scriptURL, { method: 'POST', body: new FormData(form), mode: 'no-cors' })
+            fetch(scriptURL, { method: 'POST', body: formData })
                 .then(response => {
-                    // Conditional Logic
-                    // Check if the value contains "adventure" (for Yes) or "Alas" (for No)
-                    if (attendanceValue.includes("Yes")) {
+                    if (!response.ok) {
+                        throw new Error(`HTTP ${response.status}`);
+                    }
+                    return response.text();
+                })
+                .then(() => {
+                    if (attendanceValue === "Yes") {
                         window.location.href = "thank-you.html";
                     } else {
                         window.location.href = "regrets.html";
@@ -143,7 +200,7 @@ document.getElementById('guests').addEventListener('change', updateEntreeFields)
                     console.error('Error!', error.message);
                     alert('A shadow has fallen on the form. Please try again!');
                     btn.disabled = false;
-                    btn.innerHTML = "Send RSVP";
+                    btn.textContent = "Send RSVP";
                 });
         });
     </script>

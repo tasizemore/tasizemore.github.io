@@ -133,7 +133,8 @@ nav {
 }
 
 .cta-button {
-    background-color: transparent;
+    display: inline-block;
+    background-color: rgba(0,0,0,0.4);
     color: #fff;
     padding: 15px 40px;
     border: 2px solid var(--gold-color);
@@ -143,7 +144,6 @@ nav {
     letter-spacing: 2px;
     font-weight: 700;
     transition: all 0.3s ease;
-    background-color: rgba(0,0,0,0.4);
 }
 
 .cta-button:hover {
@@ -243,7 +243,8 @@ nav {
     margin-bottom: 2rem;
 }
 
-.form-group label {
+.form-group label,
+.form-label {
     display: block;
     margin-bottom: 0.8rem;
     font-weight: 600;
@@ -268,6 +269,11 @@ input[type="text"]:focus, input[type="email"]:focus, select:focus, textarea:focu
     outline: none;
     border-bottom: 2px solid var(--accent-color);
     background-color: rgba(255,255,255,0.5);
+}
+
+input[type="text"]:focus-visible, input[type="email"]:focus-visible, select:focus-visible, textarea:focus-visible {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
 }
 
 textarea { height: 120px; }
@@ -321,12 +327,20 @@ footer {
 }
 
 .thank-you-section {
-    height: 70vh;
+    min-height: 70vh;
+    padding: 3rem 1rem;
     display: flex;
     align-items: center;
     justify-content: center;
     background-color: var(--bg-color);
-    background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.6' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E");
+}
+
+.action-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    margin-top: 2rem;
 }
 
 .thank-you-section h1 {
